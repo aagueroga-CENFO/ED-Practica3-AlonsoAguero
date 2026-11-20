@@ -1,0 +1,34 @@
+Aplicacion de los monticulos minimos (Min-Heap) al algoritmo de Dijkstra
+
+El algoritmo de Dijkstra sirve para encontrar los caminos mas cortos desde un
+vertice de origen hacia todos los demas vertices de un grafo ponderado (siempre
+que los pesos de las aristas no sean negativos). Se usa mucho en redes de
+computadoras para enrutamiento y en sistemas de mapas para calcular rutas.
+
+Durante su ejecucion, el algoritmo mantiene un registro de la distancia minima
+conocida hasta cada vertice. En cada paso, debe elegir cual es el vertice no
+visitado que tiene la menor distancia acumulada desde el origen, revisarlo y
+actualizar las distancias de sus vecinos si encuentra un camino mas corto.
+
+Aqui es donde entra el monticulo minimo (Min-Heap), funcionando como una cola
+de prioridad:
+
+1. Seleccion rapida del siguiente vertice (peek y eliminarMin):
+   En lugar de recorrer un arreglo completo cada vez para buscar cual vertice
+   tiene la menor distancia (lo que tomaria tiempo O(V) en cada paso), el
+   monticulo minimo mantiene siempre en la cima (indice 0) el vertice con la
+   distancia mas pequena. Con eliminarMin() se obtiene en tiempo O(log V) y
+   downHeapify() reorganiza el resto automaticamente.
+
+2. Insercion y actualizacion de caminos (insertar y upHeapify):
+   Cuando Dijkstra descubre una ruta mas corta hacia un vecino, agrega ese
+   vertice con su nueva distancia al monticulo. El metodo upHeapify() se
+   encarga de subirlo a la posicion que le corresponde en tiempo O(log V).
+
+3. Impacto en el rendimiento:
+   Si Dijkstra se implementa con un arreglo simple, su complejidad temporal es
+   O(V^2). Al utilizar un monticulo minimo, la complejidad mejora a
+   O((V + E) log V), donde V es la cantidad de vertices y E la cantidad de
+   aristas. En grafos grandes con pocas conexiones por nodo (grafos dispersos),
+   como redes de internet o carreteras, esta diferencia hace que el algoritmo
+   sea mucho mas rapido y escalable.
